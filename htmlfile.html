@@ -1,0 +1,281 @@
+<!doctype HTML>
+<html>
+    <head>
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--Regular CSS-->
+		<link rel="stylesheet" href="/static/css/main.css">
+		<!--Bootstrap CSS-->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+		<!--Refreshes every 30-mins, keeps data true to current time-->
+		<meta http-equiv="refresh" content="600">
+		<!--Title-->
+		<title id='titleBar'>MHSN Dashboard</title>
+    </head>
+	<body>
+		<div class="container px-4 py-5" id="custom-cards">
+			<h2 class="pb-3 border-bottom text-white"><center>High School North<br>Dashboard</center></h2>
+
+			<div class="col" id='topBox'>
+				<div class="card card-cover h-100 text-white rounded-5 shadow-lg bg-dark" style='background-image: url(/static/images/Pattern.png);'>
+				<div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1" id='topInfoContainer'>
+					
+					<!--This is where the top boxes elements are-->
+					<h2 id='date'>
+						Today is 
+						<!--TODO, try to put in seperate script and change inner html of the date tag, use jinja in-line codeblock tags to import today_is variable to concatanate-->
+						<script>now = new Date();var days = new Array('Sunday','Monday','Tuesday','Wednesday', 'Thursday','Friday','Saturday');var months = new Array('January','February','March','April', 'May','June','July','August','September', 'October','November','December');var date = ((now.getDate()<10) ? "0" : "")+ now.getDate();function y2k(number){return (number < 1000) ? number + 1900 : number;}today = days[now.getDay()] + ", " + " " + months[now.getMonth()] + " " + date + ", " + (y2k(now.getYear())) ;document.write("" + today);</script>
+						
+					</h2>
+					<h2 id='block'></h2>
+					<h2 id='time'></h2>
+					<!--This is the divider for top box-->
+					<h2 class="pb-1 border-bottom"></h2>
+					
+					<!--Bottom, under divider will have logo and quote-->
+					<ul class="d-flex list-unstyled mt-auto">
+						<li class="me-auto">
+							<img src=/static/images/mhsn_logo.jpg alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white" id='mhsn_logo'>
+						</li>
+
+						<li class="d-flex align-items-center me-3">
+							<svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+							<small id='quoteRefresh'>Be - don&#39;t try to become </small>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="row row-cols-1 row-cols-lg-2 align-items-stretch g-4 py-5">
+			<div class="col">
+				<div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url();">
+					<!-- Weather Container-->
+					<div class="d-flex flex-column h-100 p-5 pb-3 pt-3 text-white text-shadow-1">
+					<!--mbAuto -->
+						<h2 class="mt-5 display-6 lh-1 fw-bold">Mostly Cloudy 
+							<h3 class='mt-2'>Currently: 54°</h3>
+							
+							<h6 class="mb-0" style="color: red"> 
+								Small Craft Advisory
+							 </h6>
+
+							
+								<h6>Chance of Rain: 94%</h6>
+							
+							
+						</h2>  
+						
+						<ul class="d-flex list-unstyled mt-auto">
+							<li class="me-auto">
+								<img src=/static/images/mhsn_logo.jpg alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white" id='mhsn_logo'>
+							</li>
+							
+							<li class="d-flex align-items-center me-3">
+								<svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+								<small>High/Low:</small>
+							</li>
+							
+							<li class="d-flex align-items-center">
+								<svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+								<small>65°/45°</small>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div id="adBox" class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"> 
+					<!-- Ad Container-->
+					<div class="d-flex flex-column h-100 p-5 pb-3 pt-3 text-white text-shadow-1">
+						
+						<h2 class="mb-4 display-6 lh-1 fw-bold">
+							<center id='schoolAdHeader' class="mt-5 mb-auto display-6 lh-1 fw-bold"></center>
+							
+							<center><h4 id='schoolAdSubHeader' class="mt-1"></h4></center>
+						</h2>
+	
+						<ul class="d-flex list-unstyled mt-auto">
+							
+						<li class="me-auto">
+							<img src=/static/images/mhsn_logo.jpg alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+						</li>
+							
+						<li class="d-flex align-items-center me-3">
+							<svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+							<small id='schoolAdCredits'></small>
+						</li>
+							
+						<li class="d-flex align-items-center">
+							<svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+							<small id='schoolAdOptionalSide'></small>
+						</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		
+		<!--Bootstrap Javascript Bundle Dependency-->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+		<!--Element Javascript-->
+		<script>
+			function updootTime() { //Updates static page time by current time
+				var dt = new Date();
+				dt.setMinutes(dt.getMinutes() + 2); //minute adjustment
+				dt.setSeconds(dt.getSeconds() + 15); //second adjustment
+				
+				//Gets am/pm value and switches from military time to standard
+				
+				var ampm;
+				if(dt.getHours() == 00) {
+					var hours = 12;
+					ampm = 'AM';
+				} else if(dt.getHours() == 12) {
+					var hours = dt.getHours();
+					ampm = 'PM';
+				} else if(dt.getHours() > 12) {
+					var hours = dt.getHours() - 12;
+					ampm = 'PM';
+				} else {
+					var hours = dt.getHours();
+					ampm = 'AM';
+				}
+
+				//Fixes minute glitch with missing zero
+				if(dt.getMinutes() < 10) {
+					var minutes = '0' + dt.getMinutes().toString()
+				} else {
+					var minutes = dt.getMinutes().toString()
+				}
+				
+				//Fixes second glitch with missing zero
+				if(dt.getSeconds() < 10) {
+					var seconds = '0' + dt.getSeconds().toString()
+				} else {
+					var seconds = dt.getSeconds().toString()
+				}
+
+				var current_time = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+				document.getElementById("time").innerHTML = current_time;
+			}
+				
+
+			function updootBlock() {
+				date = document.getElementById('date').innerHTML;
+
+				// if('sunday' in date.toLowerCase() || 'saturday' in date.toLowerCase()) {
+				// 	document.getElementById('block').innerHTML = 'Today is a weekend, school is not in session today';
+				// 	return;
+				// } else {
+					dt = new Date();
+					dt.setMinutes(dt.getMinutes() + 0); //School clock is ~2:05 mins ahead
+					dt.setSeconds(dt.getSeconds() + 0);
+					hour = dt.getHours();
+					minute = dt.getMinutes();
+				
+					current = new Date('December 1, 2000 ' + hour + ':' + minute);
+					
+					const block_times = {
+						'1' : {
+							'start' : new Date('December 1, 2000 7:25:00').getTime(),
+							'end' : new Date('December 1, 2000 8:45:59').getTime(),
+							'name' : 'Block 1',
+						},
+						
+						'2' : {
+							'start' : new Date('December 1, 2000 8:46:00').getTime(),
+							'end' : new Date('December 1, 2000 10:10:59').getTime(),
+							'name' : 'Block 2',
+						},
+						
+						'3' : {
+							'start' : new Date('December 1, 2000 10:11:00').getTime(),
+							'end' : new Date('December 1, 2000 10:41:59').getTime(),
+							'name' : 'Block 3',
+						},
+
+						
+						'4' : {
+							'start' : new Date('December 1, 2000 10:42:00').getTime(), // change back to 10:46
+							'end' : new Date('December 1, 2000 11:12:59').getTime(),
+							'name' : 'Block 4',
+						},
+						
+						'5' : {
+							'start' : new Date('December 1, 2000 11:13:00').getTime(),
+							'end' : new Date('December 1, 2000 12:37:59').getTime(),
+							'name' : 'Block 5',
+						},
+						
+						'6' : {
+							'start' : new Date('December 1, 2000 12:38:00').getTime(),
+							'end' : new Date('December 1, 2000 14:02:59').getTime(),
+							'name' : 'Block 6',
+						}
+					}
+
+					for(let times in block_times) {
+						times = block_times[times]
+
+						if(times['start'] < current.getTime() && times['end'] > current.getTime()) {
+							document.getElementById('block').innerHTML = times['name'];
+							break
+
+						} else if(block_times['1']['start'] > current.getTime()) {
+							document.getElementById('block').innerHTML = 'School has not started yet!';
+
+						} else if(block_times['6']['end'] < current.getTime()) {
+							document.getElementById('block').innerHTML = 'School has ended!'
+						}
+
+					}
+			}
+
+			var possibleAds = ["Want an ad on the dashboard?␟Lacrosse Wins State Championship␟Clubs and Extracurriculars".split("␟"), 
+							   "Reach out to Tujaguem@middletownk12.org for info on how to add an advert␟North Lacrosse Overpowers Hazlet␟Coding Club Meet in Media Center on Friday 2:30pm-4pm".split("␟"), 
+							   "Your name, credits␟North Lacrosse␟North Clubs".split("␟"), 
+							   "More room for text␟␟".split("␟"), 
+							   "None␟/static/images/advertisingBackgrounds/lacrosse.jpeg␟None".split("␟"),
+							  ];
+			
+			for(i = 0; i < possibleAds.length; i++) {
+				console.log("Advertisement " + i);
+				for(k = 0; k < possibleAds[i].length; k++) {
+					Array.from(possibleAds[i][k]).splice(0, 1);
+					console.log("\t" + possibleAds[i][k]);
+				}
+			}
+
+			function updootAdsToAd(ad) {
+				document.getElementById("schoolAdHeader").innerHTML = possibleAds[0][ad];
+				document.getElementById("schoolAdSubHeader").innerHTML = possibleAds[1][ad];
+				document.getElementById("schoolAdCredits").innerHTML = possibleAds[2][ad];
+				document.getElementById("schoolAdOptionalSide").innerHTML = possibleAds[3][ad];
+				
+				if(possibleAds[4][ad] == "None") {
+					document.getElementById("adBox").style.backgroundImage = "";
+				} else {
+					document.getElementById("adBox").style.backgroundImage = `url(${possibleAds[4][ad]})`;
+				} 
+			}
+
+			updootAdsToAd(0) //Initial
+			
+			var secondDelay = 10;
+			var ct = 1; //after initial
+			setInterval(function() {
+				updootAdsToAd(ct % possibleAds[0].length);
+				ct++;
+			}, 1000 * secondDelay);
+
+			setInterval(function() { // Updates the time every second and returns hour minute values for block updates
+				updootBlock();
+				updootTime();				
+			}, 1000); //Every 1000 ms is a second
+
+		</script>
+	</body>
+</html>

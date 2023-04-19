@@ -1,0 +1,18 @@
+- Make interface
+	- Allow for deleting and modulating existing events
+	- Allow for upload of events
+- Make class implementation of recieved data
+- Upload serialized version of data to a database
+
+SUBTASKS
+image upload system:
+1: have users manually upload images via repl.it's upload feature, user will be responsible for putting the file in the correct folder
+2: Before file is uploaded, the program will record the current directory, to compare with after a user inputs a file
+3: The program finds the new file after before/after comparison, then renames it to chosen infographic name after the user hits the okay button
+4: If the user uploads a file but then backs out, the program should be aware, and then delete the new file.
+5: convert to bytearray to store image as a sendable datatype over HTTPS protocol https://stackoverflow.com/questions/20756042/how-to-display-an-image-stored-as-byte-array-in-html-javascript#:~:text=src%20%3D%20%22data%3Aimage%2F,%3Bbase64%2C%24%7ByourByteArrayAsBase64%7D%60)%3B 
+cd infoUpload;python3 main2.py
+
+
+
+

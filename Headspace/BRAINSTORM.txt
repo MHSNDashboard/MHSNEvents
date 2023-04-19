@@ -1,0 +1,4 @@
+How do I account for half day schedules, early dismissal, and test/event schedules
+	- manual input ovveride for schedule times
+		- injection feature from jade to java
+

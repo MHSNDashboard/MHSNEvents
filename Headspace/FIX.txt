@@ -1,0 +1,3 @@
+Nothing is rendering properly
+- Make sure bootstrap is working
+- Reinstall HTML from pre-existing website
