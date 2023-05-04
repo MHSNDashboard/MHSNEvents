@@ -20,53 +20,66 @@ def check(id, evar): #add more checks with pertinence to text length, to prevent
   
   if not id:
     return False
+
+  if id in db.keys():
+    t += "This event ID is taken, please return home and remove the mentioned event, or enter a different event ID\n"
   
-  else:
-    if " " in id or "\n" in id or "\t" in id:
-      t += "Please refrain from using spaces, newlines, and tab characters in eventID\n"
-    if len([x for x in id if x.isdigit()]) > 0:
-      t += "Please refrain from using number characters in eventID\n"
-    if len([x for x in id if x in illegal]) > 0: #TODO check this condition for all attrs
-      t += "Please refrain from using special characters in eventID\n"
+  if " " in id or "\n" in id or "\t" in id:
+    t += "Please refrain from using spaces, newlines, and tab characters in eventID\n"
+  
+  # if len([x for x in id if x.isdigit()]) > 0: num characters are okay
+  #   t += "Please refrain from using number characters in eventID\n"
+  
+  if len([x for x in id if x in illegal]) > 0:
+    t += "Please refrain from using special characters in eventID\n"
   
   evar.set(t)
-  return t == "\n"
+  return t == "\n" # t will remain \n if no issues are found in event submission
 
-def submit(valid_event, evar, go_home, title, date, pt, id): # this runs regardless but tf: bool will decide whether or not to upload class data to DB assuming all checks passed
+def submit(valid_event, evar, go_home, header, subheader, st_right, st_left, id): # this runs regardless but tf: bool will decide whether or not to upload class data to DB assuming all checks passed
   #reformatting labels to raw data
-  title = title.get()
-  date = date.get()
-  pt = pt.get()
+  header = header.get()
+  subheader = subheader.get()
+  st_right = st_right.get()
+  st_left = st_left.get()
+  
   id = id.get()
 
   if valid_event:
     for img in get_event_images(): 
       if "temp" in img and img.split(".")[0][-1].isdigit(): #uploaded image is both valid and new, therefore we sync it to the ID for future use
         os.rename(get_image_path("event") + img, get_image_path("event") + id + ".jpg") # will prevent file deletion and sync it to the event
-
-
-  #TODO STORE OTHER DATA IN CLASS, SAVE IT TO DB  
+        image = get_image_path("event") + id + ".jpg"
+        break
+    else:
+      image = None
+    
+    e = Event(id=id, header=header, subheader=subheader, subtext_right=st_right, subtext_left=st_left, image=image)
+    e.store_in_database()
+    
     go_home()
     
 def create_event_screen(frame, create_home_screen): # returns None if user backout, otherwise JSON
   clear_frame(frame)
 
-  MAXCOLUMN = 4 #used for centering
+  MAXCOLUMN = 5 #used for centering
   title_label = Label(frame, text="Event Edit/Upload").grid(row=0, column=0, columnspan=MAXCOLUMN)
   
-  event_title_label = Label(frame, text="Event Title")
-  date_label = Label(frame, text="Date")
-  place_time_label = Label(frame, text="Place & Time")
+  header_label = Label(frame, text="Event Header")
+  subheader_label = Label(frame, text="Event Subheader")
+  subtext_right_label = Label(frame, text="Right Bottom Subtext")
+  subtext_left_label = Label(frame, text="Left Bottom Subtext")
   event_id_label = Label(frame, text="Event ID")
   
-  event_title_entry = Entry(frame);event_title_entry.insert(0, "Coding Club Meet")
-  date_entry = Entry(frame);date_entry.insert(0, "Thursday 3/14/2023")
-  place_time_entry = Entry(frame);place_time_entry.insert(0, "Room 2412, Block 4")
-  event_id_entry = Entry(frame);event_id_entry.insert(0, "CCM4(2023)")
+  header_entry = Entry(frame);header_entry.insert(0, "Coding Club Meet")
+  subheader_entry = Entry(frame);subheader_entry.insert(0, "Thursday 3/14/2023")
+  subtext_right_entry = Entry(frame);subtext_right_entry.insert(0, "Block 4")
+  subtext_left_entry = Entry(frame);subtext_left_entry.insert(0, "Room 2412")
+  event_id_entry = Entry(frame);event_id_entry.insert(0, "For future event reference")
 
   widgets = [
-    [event_title_label, date_label, place_time_label, event_id_label],
-    [event_title_entry, date_entry, place_time_entry, event_id_entry]
+    [header_label, subheader_label, subtext_right_label, subtext_left_label, event_id_label],
+    [header_entry, subheader_entry, subtext_right_entry, subtext_left_entry, event_id_entry]
   ]
 
   for i in range(len(widgets)): 
@@ -79,8 +92,6 @@ def create_event_screen(frame, create_home_screen): # returns None if user backo
 
   def kill_invalid_images():
     for img in get_event_images():
-      print(img)
-      
       if "temp" in img and img.split(".")[0][-1].isdigit():
         os.remove(get_image_path("event") + img)
   
@@ -91,7 +102,7 @@ def create_event_screen(frame, create_home_screen): # returns None if user backo
   
   go_home = lambda: kill_process_then(p, create_home_screen)
   
-  instruction_label = Label(frame, text="\nTo upload an image(optional) please(in order)...\n1) Find the filebar to your left\n2) Navigate to static/images/event_backgrounds\n3) Upload your image(make sure the image lands inside of the folder!)\n4) Click SUMBIT EVENT when form is completely done!\nDO NOT UPLOAD MORE THAN 1 IMAGE, OR REMOVE AN IMAGE FROM THE FOLDER!\nIF YOU MAKE A MISTAKE GO BACK TO THE HOME SCREEN AND TRY AGAIN")
+  instruction_label = Label(frame, text="\nPlease read before submitting an event\nTo upload an image(optional) please(in order)...\n1) Find the filebar to your left\n2) Navigate to the folder in static/images/event_backgrounds\n3) Upload your image inside of the aforemenetioned folder\n4) Click SUMBIT EVENT when form is completely done!\n\nDO NOT UPLOAD MORE THAN 1 IMAGE, OR REMOVE AN IMAGE FROM THE FOLDER!\nIF YOU MAKE A MISTAKE GO BACK TO THE HOME SCREEN AND TRY AGAIN")
   instruction_label.grid(row=3, column=0, columnspan=MAXCOLUMN)
 
   iuvar = StringVar()
@@ -101,9 +112,10 @@ def create_event_screen(frame, create_home_screen): # returns None if user backo
   iuvar.set("Image Uploaded? NO")
   
   form_complete_button = Button(frame, text="SUBMIT EVENT", command=lambda: submit(check(event_id_entry.get(), evar), evar, go_home,
-                                                                                  event_title_entry,
-                                                                                  date_entry,
-                                                                                  place_time_entry,
+                                                                                  header_entry,
+                                                                                  subheader_entry,
+                                                                                  subtext_right_entry, 
+                                                                                  subtext_left_entry,
                                                                                   event_id_entry
                                                                                 ))
   form_complete_button.grid(row=4, column=(MAXCOLUMN//2))
@@ -116,9 +128,9 @@ def create_event_screen(frame, create_home_screen): # returns None if user backo
   p.start() #This process is killed upon going to the homescreen or successful event submission.
 
   def wait_for_process_kill(proc, label):
-    while proc.is_alive(): sleep(1)
-      
-      
+    while proc.is_alive():
+      sleep(1)
+          
     for img in get_event_images():
       if "temp" in img and img.split(".")[0][-1].isdigit(): #uploaded image is both valid and new, therefore we sync it to the ID for future use
         label.set("Image Uploaded? YES")

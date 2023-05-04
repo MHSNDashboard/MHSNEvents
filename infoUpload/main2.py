@@ -8,4 +8,5 @@ from deleteEvent import create_deletion_screen
 from functions import clear_frame
 from home import start_info_upload
 
+#TODO kill all unregistered images on start
 start_info_upload()
