@@ -36,7 +36,6 @@ def create_home_screen(frame):
 
 def start_info_upload():
   root = Tk()
-  
   width = root.winfo_reqwidth()
   height = root.winfo_reqheight()
   

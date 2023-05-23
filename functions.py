@@ -49,7 +49,8 @@ def wait_for_file(PATH): #planned to be threaded
     sleep(1)
     
   uploaded_image = find_difference(before, current)
-  
+
+  #keeps file extension
   temporary_name = IMAGE_PATH + ("event_backgrounds/" if "event" in PATH else "advertising_backgrounds/") + temporary_name + "." + uploaded_image.split(".")[1]
   
   if uploaded_image.split(".")[1] not in ("jpeg", "jpg", "png"):

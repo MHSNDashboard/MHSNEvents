@@ -23,7 +23,7 @@ class Event:
       self.image_data = storable #store as a byte array to be stored in DB, postable as readable text via html, HTTPS can read it and then on new website it works as src
     
     else:
-      self.image_data = image_data if image_data else None
+      self.image_data = image_data if image_data else ""
   
   def store_in_database(self):
     json_serializable_data = {"id": self.id, "header" : self.header, "subheader" : self.subheader, 

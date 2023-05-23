@@ -1,1 +1,0 @@
-image url must be contained in the last separation of the db, or else it has to be hardcoded

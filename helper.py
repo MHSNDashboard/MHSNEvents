@@ -12,7 +12,7 @@ class aware:
 		
 		ADAY = "A Day" in schedule
 		BDAY = "B Day" in schedule
-		print(monthDay)
+	
 		FULLDAY = "Full Day" in schedule
 		
 		day = 'A' if ADAY else 'B' if BDAY else ""
