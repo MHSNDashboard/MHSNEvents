@@ -48,8 +48,9 @@ def submit(valid_event, evar, go_home, header, subheader, st_right, st_left, id)
   if valid_event:
     for img in get_event_images(): 
       if "temp" in img and img.split(".")[0][-1].isdigit(): #uploaded image is both valid and new, therefore we sync it to the ID for future use
-        os.rename(get_image_path("event") + img, get_image_path("event") + id + ".jpg") # will prevent file deletion and sync it to the event
-        image = get_image_path("event") + id + ".jpg"
+        fextension = img.split(".")[1]
+        os.rename(get_image_path("event") + img, get_image_path("event") + id + fextension) # will prevent file deletion and sync it to the event
+        image = get_image_path("event") + id + fextension
         break
     else:
       image = None
@@ -67,9 +68,9 @@ def create_event_screen(frame, create_home_screen): # returns None if user backo
   
   header_label = Label(frame, text="Event Header")
   subheader_label = Label(frame, text="Event Subheader")
-  subtext_right_label = Label(frame, text="Right Bottom Subtext")
-  subtext_left_label = Label(frame, text="Left Bottom Subtext")
-  event_id_label = Label(frame, text="Event ID")
+  subtext_right_label = Label(frame, text="Left Bottom Subtext") #these swap on event displayment for some reason, swapping them
+  subtext_left_label = Label(frame, text="Right Bottom Subtext") #here is a viable solution
+  event_id_label = Label(frame, text="Event Identifier")
   
   header_entry = Entry(frame);header_entry.insert(0, "Coding Club Meet")
   subheader_entry = Entry(frame);subheader_entry.insert(0, "Thursday 3/14/2023")

@@ -114,10 +114,12 @@ def run_flask_app():
   if __name__ == '__main__': #posts website
     app.run(host="0.0.0.0", port=9050)
 
-event_process = Process(target = start_info_upload)
-event_process.start()
 
+
+event_process = Process(target = start_info_upload)
 flask_process = Process(target = run_flask_app)
+
+event_process.start()
 flask_process.start()
 
-event_process.join() # so main thread doesn't kill everything after initializing the two processes
+event_process.join()

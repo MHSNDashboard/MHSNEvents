@@ -1,7 +1,0 @@
-
-5: convert to bytearray to store image as a sendable datatype over HTTPS protocol https://stackoverflow.com/questions/20756042/how-to-display-an-image-stored-as-byte-array-in-html-javascript#:~:text=src%20%3D%20%22data%3Aimage%2F,%3Bbase64%2C%24%7ByourByteArrayAsBase64%7D%60)%3B 
-cd infoUpload;python3 main2.py
-
-
-
-

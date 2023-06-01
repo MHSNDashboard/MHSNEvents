@@ -54,9 +54,8 @@ def wait_for_file(PATH): #planned to be threaded
   temporary_name = IMAGE_PATH + ("event_backgrounds/" if "event" in PATH else "advertising_backgrounds/") + temporary_name + "." + uploaded_image.split(".")[1]
   
   if uploaded_image.split(".")[1] not in ("jpeg", "jpg", "png"):
-    os.rename(PATH + uploaded_image, PATH + "must_be_JPEG_JPG_or_PNG.jpg") #we cannot update labels from different process, therefore this convoluted fix will have to suffice
-    sleep(1)
-    os.remove(PATH + "must_be_JPEG_JPG_or_PNG.jpg")
+    os.remove(PATH + uploaded_image)
+    print("PLEASE ONLY UPLOAD files WITH (jpeg, jpg, png) FILE EXTENSIONS")
     return
 
   print(f"New file uploaded, {uploaded_image}\nPlease continue your submission")
