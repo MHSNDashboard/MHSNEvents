@@ -8,7 +8,7 @@ def clear_frame(frame):
     widgets.destroy()
     
 #Image stuff
-IMAGE_PATH = "/home/runner/MHSNScrape/static/images/"
+IMAGE_PATH = "/home/runner/MHSNEvent/static/images/"
 get_image_path = lambda type_: IMAGE_PATH + type_ + "_backgrounds/"
 
 def get_images(path):
@@ -61,6 +61,3 @@ def wait_for_file(PATH): #planned to be threaded
   print(f"New file uploaded, {uploaded_image}\nPlease continue your submission")
   
   os.rename(PATH + uploaded_image, temporary_name) #keeps file extension, changes name to length of directory for access during submit faze
-
-  
-  

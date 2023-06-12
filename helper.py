@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests, os, re, datetime
 
 class aware:
-  def get_day_type():
+  def get_day_type(): #decomissioned until school website or other party provides documentation of resource
     url = "https://north.middletownk12.org/"
     soup = BeautifulSoup(requests.get(url).content, "lxml")
     
@@ -18,7 +18,7 @@ class aware:
     day = 'A' if ADAY else 'B' if BDAY else ""
     return day
 	
-  def get_weather():
+  def get_weather(): #not used, but sent over HTTP if future generations of maintainment would like to incorporate
 		
     def isPertinent(x, *args, accuracy = 1):
       c = 0

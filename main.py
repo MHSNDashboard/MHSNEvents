@@ -66,7 +66,7 @@ def run_flask_app():
       weather_img_name = 'Unknown.jpg'
 
     #convert img to b64
-    with open("/home/runner/MHSNScrape/static/images/" + weather_img_name, "rb") as img:
+    with open("/home/runner/MHSNEvent/static/images/" + weather_img_name, "rb") as img:
       lines = img.read()
       ba = bytearray(lines)
       
@@ -80,9 +80,13 @@ def run_flask_app():
     high_low = high_low.replace("F", "°")
 
     ads = []
-    for key in db.keys():
-      ads.append(dict(db[key]))
+    for key in db["ads"].keys():
+      ads.append(dict(db["ads"][key]))
 
+    events = []
+    for key in db["events"].keys():
+      events.append(dict(db["events"][key]))
+      
     #formatting data
     json_data = {
       "weather" : {
@@ -99,6 +103,7 @@ def run_flask_app():
         "AB" : today_is,
       },
       
+      "events" : events,
       "advertisements" : ads,
       
     }
@@ -113,8 +118,6 @@ def run_flask_app():
   
   if __name__ == '__main__': #posts website
     app.run(host="0.0.0.0", port=9050)
-
-
 
 event_process = Process(target = start_info_upload)
 flask_process = Process(target = run_flask_app)

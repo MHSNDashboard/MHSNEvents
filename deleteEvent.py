@@ -13,10 +13,10 @@ def delete(event_id, go_home):
     except:
       print("Image location not syncronized with event, please check the folder static/images/event_backgrounds and make sure the associated image gets deleted")
   
-  del db[event_id]
+  del db["events"][event_id]
   go_home()
 
-def create_deletion_screen(frame, create_home_screen):  # returns None if user backout, otherwise JSON
+def event_deletion_screen(frame, create_home_screen):  # returns None if user backout, otherwise JSON
   clear_frame(frame)
   def go_home():
     clear_frame(frame)
@@ -31,7 +31,7 @@ def create_deletion_screen(frame, create_home_screen):  # returns None if user b
   subtitle_label.grid(row=1, column=MAX_COLUMN//2)
 
   #dropdown logic
-  event_ids = list(db.keys())
+  event_ids = list(db["events"].keys())
   current = StringVar()
   
   try:
@@ -39,9 +39,7 @@ def create_deletion_screen(frame, create_home_screen):  # returns None if user b
     
   except IndexError: 
     clear_frame(frame)
-    error_label = Label(frame, text="There are no registered events in the database! Please submit an event before you wish to delete one!")
-    error_label.grid(row=5,column=0)
-    
+    print("There are no registered events in the database! Please submit an ad before you wish to delete one!")
     go_home()
 
   else:
