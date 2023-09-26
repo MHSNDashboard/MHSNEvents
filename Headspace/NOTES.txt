@@ -1,2 +1,0 @@
-shell ->> kill 1
-tends to fix the output tab with seperate process running
