@@ -1,0 +1,5 @@
+Headspace/
+static/
+templates/
+venv
+previousRun.html
