@@ -1,5 +1,8 @@
 Headspace/
 static/
 templates/
-venv
+venv/
+.git
+.config
+/__pycache__
 previousRun.html
